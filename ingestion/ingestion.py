@@ -41,7 +41,7 @@ sdf.write \
     .option("url", "jdbc:postgresql://ip-10-0-0-11:5682/wolf") \
     .option("dbtable", "wolfdata") \
     .option("user", "db_select") \
-    .option("password", "x15jh7") \
+    .option("password", "######") \
     .save()
 
 #Close Spark session
