@@ -2,8 +2,8 @@
 
 '''
 Written for Insight Data Engineering Fellowship
-Version 1.0: Wolf tutorial test 
-Casey Zakroff; Jun 17, 2020
+Version 1.1: Wolf tutorial test 
+Casey Zakroff; Jun 18, 2020
 '''
 
 ### Libraries
@@ -16,15 +16,20 @@ from pyspark.sql import SparkSession
 from proc_utils import *
 
 ###Create and configure Spark session
-spark = SparkSession.builder.appName("WolfTest").getOrCreate()
+spark = SparkSession.builder.appName("WolfProcess").getOrCreate()
+
+psql_url = os.environ.get('PSQL_URL')
+source_table = "wolfdata"
+psql_user = os.environ.get('PSQL_USER')
+psql_pass = os.environ.get('PSQL_PASS')
 
 ###Read in data from PostgreSQL database
 sdf = spark.read \
     .format("jdbc") \
-    .option("url", "jdbc:postgresql://ip-10-0-0-11:5682/wolf") \
-    .option("dbtable", "wolfdata") \
-    .option("user", "db_select") \
-    .option("password", "######") \
+    .option("url", psql_url) \
+    .option("dbtable", source_table ) \
+    .option("user", psql_user) \
+    .option("password", psql_pass) \
     .load()
 
 #Convert to pandas
@@ -57,10 +62,6 @@ os.system("obi ecotag -m 0.97 --taxonomy wolf/taxonomy/my_tax -R wolf/v05_db_97 
 os.system("obi stats -c SCIENTIFIC_NAME wolf/assigned_sequences")
 os.system("obi align -t 0.95 wolf/assigned_sequences wolf/aligned_assigned_sequences")
 os.system("obi export --fasta-output wolf/assigned_sequences -o wolf_results.fasta")
-
-#Ingest results fasta as Spark Dataframe
-
-#Join results to reads in PostgreSQL database
 
 #Close Spark session
 spark.stop()

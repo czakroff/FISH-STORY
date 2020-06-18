@@ -2,8 +2,8 @@
 
 '''
 Written for Insight Data Engineering Fellowship
-Version 1.0: Wolf tutorial test 
-Casey Zakroff; Jun 17, 2020
+Version 1.1: Wolf tutorial test 
+Casey Zakroff; Jun 18, 2020
 '''
 
 ### Libraries
@@ -36,12 +36,18 @@ fastQ_to_pandas(fwd_path, rev_path, df)
 sdf = spark.createDataFrame(df)
 
 ###Store in PostgreSQL database
+psql_url = os.environ.get('PSQL_URL')
+psql_table = "wolfdata"
+psql_user = os.environ.get('PSQL_USER')
+psql_pass = os.environ.get('PSQL_PASS')
+
 sdf.write \
     .format("jdbc") \
-    .option("url", "jdbc:postgresql://ip-10-0-0-11:5682/wolf") \
-    .option("dbtable", "wolfdata") \
-    .option("user", "db_select") \
-    .option("password", "######") \
+    .option("mode", "overwrite") \
+    .option("url", psql_url) \
+    .option("dbtable", psql_table) \
+    .option("user", psql_user) \
+    .option("password", psql_pass) \
     .save()
 
 #Close Spark session
