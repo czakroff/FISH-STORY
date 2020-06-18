@@ -1,0 +1,8 @@
+spark call
+
+spark-submit \
+  --master spark://10.0.0.8:7077 \
+  --driver-class-path postgresql-42.2.6.jar \
+  --jars postgresql-42.2.6.jar \
+  --executor-memory 4G \
+  spark_eDNA.py
