@@ -1,3 +1,24 @@
-Make postproc_cleanup.py
+###app.py
+#Hello World
+#Wolf Tutorial
+#Fish data
+
+###ingestion.py
+#
+
+###ingest_utils.py
+#
+
+###proc_utils.py
+#rewrite for Fish data
+
+### postproc_cleanup.py
+#Make this file
 #Clear or store intermediate data from master
+
+###spark_eDNA.py
+#
+
+###summarizeResults.py
+#Pass table name to script from shell call
 

@@ -22,4 +22,4 @@ spark-submit \
   --driver-class-path postgresql-42.2.6.jar \
   --jars postgresql-42.2.6.jar \
   --executor-memory 2G \
-  FISH-STORY/database-scripts/summarizeResults.py
+  FISH-STORY/data-processing/summarizeResults.py

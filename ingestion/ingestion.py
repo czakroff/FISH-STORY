@@ -7,6 +7,7 @@ Casey Zakroff; Jun 18, 2020
 '''
 
 ### Libraries
+import os
 import numpy as np
 import pandas as pd
 from pyspark.sql import SparkSession
@@ -43,7 +44,7 @@ psql_pass = os.environ.get('PSQL_PASS')
 
 sdf.write \
     .format("jdbc") \
-    .option("mode", "overwrite") \
+    .mode("overwrite") \
     .option("url", psql_url) \
     .option("dbtable", psql_table) \
     .option("user", psql_user) \

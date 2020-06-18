@@ -2,8 +2,8 @@
 
 '''
 Written for Insight Data Engineering Fellowship
-Version 1.0: Wolf tutorial test 
-Casey Zakroff; Jun 17, 2020
+Version 1.1: Wolf tutorial test 
+Casey Zakroff; Jun 18, 2020
 '''
 
 ### Libraries
@@ -44,12 +44,12 @@ def fasta_to_dicts(fasta_path):
                 for i in range(0,len(split_line)-1):
                     #ID
                     if i == 0:
-                        tuples.append(('ID',split_line[0][1:]))
+                        tuples.append(('read_ID',split_line[0][1:]))
                         
-                    #
+                    #Other data fields
                     else:
                         fields = split_line[i].split('=')
-                        tuples.append((fields[0],fields[1]))
+                        tuples.append((fields[0][1:],fields[1]))
                         
                 dict_list.append(dict(tuples))
                 tuples = []
