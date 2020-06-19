@@ -20,16 +20,10 @@ import os
 ###Pull data from PostgreSQL
 
 #Set psql variables
-#psql_user = os.environ.get('PSQL_USER')
-#psql_pass = os.environ.get('PSQL_PASS')
-#psql_ip = os.environ.get('PSQL_IP')
-#psql_port = os.environ.get('PSQL_PORT')
-
-#Local version
-psql_user = 'db_select'
-psql_pass = '3q2xAp'
-psql_ip = '44.231.87.150'
-psql_port = '5682'
+psql_user = os.environ.get('PSQL_USER')
+psql_pass = os.environ.get('PSQL_PASS')
+psql_ip = os.environ.get('PSQL_IP')
+psql_port = os.environ.get('PSQL_PORT')
 
 #Connect to psql database
 connection = psycopg2.connect(user = psql_user,
