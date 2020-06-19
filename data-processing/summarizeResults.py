@@ -20,26 +20,45 @@ from proc_utils import *
 spark = SparkSession.builder.appName("WolfResults").getOrCreate()
 
 ###Ingest results fasta as Spark Dataframe
+
+#Ingest results into pandas
 fasta_path = "wolf_results.fasta"
+df_results = pd.DataFrame(fasta_to_dicts(fasta_path))
+
+#Cast datatypes
+df_results["read_ID"] = df_results["read_ID"].astype(str)
+df_results["obiclean_samplecount"] = df_results["obiclean_samplecount"].astype(int)
+df_results["BEST_MATCH_TAXIDS"] = df_results["BEST_MATCH_TAXIDS"].astype(str)
+df_results["COUNT"] = df_results["COUNT"].astype(int)
+df_results["obiclean_internalcount"] = df_results["obiclean_internalcount"].astype(int)
+df_results["SCIENTIFIC_NAME"] = df_results["SCIENTIFIC_NAME"].astype(str)
+df_results["ID_STATUS"] = df_results["ID_STATUS"].astype(str)
+df_results["MERGED_sample"] = df_results["MERGED_sample"].astype(str)
+df_results["BEST_IDENTITY"] = df_results["BEST_IDENTITY"].astype(float)
+df_results["obiclean_headcount"] = df_results["obiclean_headcount"].astype(int)
+df_results["BEST_MATCH_IDS"] = df_results["BEST_MATCH_IDS"].astype(str)
+df_results["TAXID"] = df_results["TAXID"].astype(str)
+df_results["obiclean_status"] = df_results["obiclean_status"].astype(str)
+df_results["obiclean_head"] = df_results["obiclean_head"].astype(str)
 
 #Set schema
-mySchema = StructType([ StructField("BEST_IDENTITY", LongType(), True)\
-                       ,StructField("BEST_MATCH_IDS", StringType(), True)\
-                       ,StructField("BEST_MATCH_TAXIDS", StringType(), True)\
-                       ,StructField("COUNT", IntegerType(), True)\
-                       ,StructField("ID_STATUS", BooleanType(), True)\
-                       ,StructField("MERGED_sample", StringType(), True)\
-                       ,StructField("SCIENTIFIC_NAME", StringType(), True)\
-                       ,StructField("TAXID", StringType(), True)\
-                       ,StructField("obiclean_head", BooleanType(), True)\
-                       ,StructField("cobiclean_headcount", IntegerType(), True)\
-                       ,StructField("obiclean_internalcount", IntegerType(), True)\
-                       ,StructField("obiclean_samplecount", IntegerType(), True)\
-                       ,StructField("obiclean_status", StringType(), True)\
-                       ,StructField("read_ID", StringType(), True)])
+results_schema = StructType([ StructField("read_ID", StringType(), True)\
+                             ,StructField("obiclean_samplecount", IntegerType(), True)\
+                             ,StructField("BEST_MATCH_TAXIDS", StringType(), True)\
+                             ,StructField("COUNT", IntegerType(), True)\
+                             ,StructField("obiclean_internalcount", IntegerType(), True)\
+                             ,StructField("SCIENTIFIC_NAME", StringType(), True)\
+                             ,StructField("ID_STATUS", StringType(), True)\
+                             ,StructField("MERGED_sample", StringType(), True)\
+                             ,StructField("BEST_IDENTITY", DoubleType(), True)\
+                             ,StructField("obiclean_headcount", IntegerType(), True)\
+                             ,StructField("BEST_MATCH_IDS", StringType(), True)\
+                             ,StructField("TAXID", StringType(), True)\
+                             ,StructField("obiclean_status", StringType(), True)\
+                             ,StructField("obiclean_head", StringType(), True)])
 
 #Make Spark dataframe
-sdf_results = spark.createDataFrame(pd.DataFrame(fasta_to_dicts(fasta_path)), schema=mySchema)
+sdf = spark.createDataFrame(df_results, schema = results_schema)
 
 ###Store results to reads in PostgreSQL database
 

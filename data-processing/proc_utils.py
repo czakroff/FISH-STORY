@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 
 '''
+Data Processing Utilities
+
+This mini-library contains methods needed in the Spark processing pipeline of the
+DNA reads, generally converting the reads from dataframes to fasta/fastQ or vice versa.
+
 Written for Insight Data Engineering Fellowship
 Version 1.1: Wolf tutorial test 
 Casey Zakroff; Jun 18, 2020
@@ -10,7 +15,24 @@ Casey Zakroff; Jun 18, 2020
 import numpy as np
 import pandas as pd
 
-#wolf version: Converts fastQ files to pandas dataframe
+### pandas_to_fastQ
+# This method takes a pandas dataframe of paired end DNA reads and writes 
+# it to forward and reverse fastQ files.
+#
+# Arguments: 
+#       df: A pandas dataframe of DNA reads with 5 columns in the form:
+#       	columns = ['SRA','read_F','read_R','qual_F','qual_R']
+#				SRA = ID of SRA (sequencing run) file
+#				read_F = Forward nucleotide sequence
+#				read_R = Reverse nucleotide sequence
+#				qual_F = Quality score of forward nucleotide sequence 
+#				qual_R = Quality score of reverse nucleotide sequence
+#
+# 		fwd_path: A path string to write the fastQ file of forward reads.
+#       rev_path: A path string to write the fastQ file of reverse reads.
+#		
+# Return: none. Writes contents of pre-existing pandas dataframe.
+#
 def pandas_to_fastQ(df, fwd_path, rev_path):
 
 	#Create writeable files
@@ -31,7 +53,15 @@ def pandas_to_fastQ(df, fwd_path, rev_path):
                 fwd.write(df.loc[i,'qual_F'])
                 rev.write(df.loc[i,'qual_R'])
 
-#Convert fasta to dicts
+### fasta_to_dicts
+# This method takes a fasta file of taxonomic results and compiles it as a list
+# of dicts, which is intended to be used to build a pandas dataframe.
+#
+# Arguments: 
+# 		fasta_path: A path string to the fasta file of taxonomic results.
+#
+# Return: A list of dictionaries containing fields from fasta file.
+#
 def fasta_to_dicts(fasta_path):
     dict_list = list()
     tuples = []
