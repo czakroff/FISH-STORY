@@ -14,7 +14,6 @@ import dash_html_components as html
 import plotly.express as px
 import numpy as np
 import pandas as pd
-import psycopg2
 import os
 
 ###Data preparation
