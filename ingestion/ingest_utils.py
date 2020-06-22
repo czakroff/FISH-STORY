@@ -7,8 +7,8 @@ This mini-library contains a method for converting fastQ files into pandas
 dataframes as part of ingestion into Spark.
 
 Written for Insight Data Engineering Fellowship
-Version 1.1: Functional pipeline
-Casey Zakroff; Jun 18, 2020
+Version 2.0: Functional pipeline
+Casey Zakroff; Jun 22, 2020
 '''
 
 ### Libraries
@@ -23,8 +23,10 @@ import pandas as pd
 # 		fwd_path: A path string to the fastQ file of forward reads.
 #       rev_path: A path string to the fastQ file of reverse reads.
 #		df: An empty pandas dataframe with 5 columns in the form:
-#       	columns = ['SRA','read_F','read_R','qual_F','qual_R']
+#       	columns = ['SRA','readNum','length,'read_F','read_R','qual_F','qual_R']
 #				SRA = ID of SRA (sequencing run) file
+#				readNum = ID of read
+#				length = length of read
 #				read_F = Forward nucleotide sequence
 #				read_R = Reverse nucleotide sequence
 #				qual_F = Quality score of forward nucleotide sequence 
@@ -43,7 +45,10 @@ def fastQ_to_pandas(fwd_path, rev_path, df):
                 line_r = next(rev)
             
                 if (line_f[0] == '@') & read:
-                    row.append(line_f)
+                	ID_str = line_f.split(' ')
+                    row.append(ID_str[0][1:-2])
+                    row.append(ID_str[1])
+                    row.append(ID_str[2][-3:])
                 elif (line_f[0] == '+') & read:
                     read = False
                 elif read:
