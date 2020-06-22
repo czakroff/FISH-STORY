@@ -27,8 +27,8 @@ os.system("fasterq-dump SRR8649743")
 ###Ingest FastQ to Spark
 
 #Set path to paired fastQ files
-fwd_path = "home/ubuntu/SRR8649743_1.fastq"
-rev_path = "home/ubuntu/SRR8649743_2.fastq"
+fwd_path = "/home/ubuntu/SRR8649743_1.fastq"
+rev_path = "/home/ubuntu/SRR8649743_2.fastq"
 
 #Build pandas dataframe
 columns = ['SRA','readNum','length','read_F','read_R','qual_F','qual_R']
@@ -48,7 +48,6 @@ psql_pass = os.environ.get('PSQL_PASS')
 
 sdf.write \
     .format("jdbc") \
-    .mode("overwrite") \
     .option("url", psql_url) \
     .option("dbtable", psql_table) \
     .option("user", psql_user) \

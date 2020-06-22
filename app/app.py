@@ -3,8 +3,8 @@
 
 '''
 Written for Insight Data Engineering Fellowship
-Version 1.1: Wolf tutorial test 
-Casey Zakroff; Jun 19, 2020
+Version 1.2: Wolf data through Gunicorn
+Casey Zakroff; Jun 22, 2020
 '''
 
 ###Libraries
@@ -17,45 +17,11 @@ import pandas as pd
 import psycopg2
 import os
 
-###Pull data from PostgreSQL
-
-#Set psql variables
-psql_user = os.environ.get('PSQL_USER')
-psql_pass = os.environ.get('PSQL_PASS')
-psql_ip = os.environ.get('PSQL_IP')
-psql_port = os.environ.get('PSQL_PORT')
-
-#Connect to psql database
-connection = psycopg2.connect(user = psql_user,
-                              password = psql_pass,
-                              host = psql_ip,
-                              port = psql_port,
-                              database = 'wolf')
-cursor = connection.cursor()
-
-#Pull columns from results
-cursor.execute("SELECT column_name \
-			   FROM information_schema.columns \
-			   WHERE table_schema = 'public' \
-			   AND table_name   = 'wolf_results';")	   
-columns = cursor.fetchall()
-
-#Decompose tuples
-columns = list(i[0] for i in columns)
-
-#Pull results data
-cursor.execute("SELECT * \
-               FROM wolf_results;")              
-results = cursor.fetchall()
-
-#Build pandas dataframe
-df = pd.DataFrame(results,columns = columns)
-
-#Close database connection
-cursor.close()
-connection.close()
-
 ###Data preparation
+
+#Get data from local table
+path = '/home/ubuntu/summaryData.csv'
+df = pd.read_csv(path)
 
 #Proportion of Reads Identified
 num_id = ['Identified', sum(list(df.loc[df.SCIENTIFIC_NAME != 'nan','COUNT']))]
@@ -90,7 +56,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 server = app.server
 
-server.layout = html.Div(children=[
+app.layout = html.Div(children=[
     html.H1(children='FISH-STORY DASHBOARD'),
 
     html.Div(children='''
@@ -107,4 +73,4 @@ server.layout = html.Div(children=[
 ])
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(host='0.0.0.0', debug=True)
