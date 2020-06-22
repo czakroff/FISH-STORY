@@ -2,7 +2,7 @@
 
 '''
 Written for Insight Data Engineering Fellowship
-Version 2.0: Fish data test
+Version 2.0: Functional Pipeline
 Casey Zakroff; Jun 22, 2020
 '''
 

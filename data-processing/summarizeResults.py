@@ -2,8 +2,8 @@
 
 '''
 Written for Insight Data Engineering Fellowship
-Version 1.1: Wolf tutorial test 
-Casey Zakroff; Jun 18, 2020
+Version 2.0: Functional Pipeline
+Casey Zakroff; Jun 22, 2020
 '''
 
 ### Libraries
@@ -17,12 +17,12 @@ from pyspark.sql.types import *
 from proc_utils import *
 
 ###Create and configure Spark session
-spark = SparkSession.builder.appName("WolfResults").getOrCreate()
+spark = SparkSession.builder.appName("FishResults").getOrCreate()
 
 ###Ingest results fasta as Spark Dataframe
 
 #Ingest results into pandas
-fasta_path = "wolf_results.fasta"
+fasta_path = "fish_results.fasta"
 df_results = pd.DataFrame(fasta_to_dicts(fasta_path))
 
 #Cast datatypes
@@ -64,7 +64,7 @@ sdf = spark.createDataFrame(df_results, schema = results_schema)
 
 #Set psql variables
 psql_url = os.environ.get('PSQL_URL')
-results_table = "wolf_results"
+results_table = "fish_results"
 psql_user = os.environ.get('PSQL_USER')
 psql_pass = os.environ.get('PSQL_PASS')
 
