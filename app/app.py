@@ -22,6 +22,12 @@ import os
 path = '/home/ubuntu/summaryData.csv'
 df = pd.read_csv(path)
 
+del df[df.columns[0]]
+
+for i in range(0,len(df.dtypes)):
+	if str(df.dtypes[i]) == 'O':
+		df[columns[i]] = df[columns[i]].astype(str)
+
 #Proportion of Reads Identified
 num_id = ['Identified', sum(list(df.loc[df.SCIENTIFIC_NAME != 'nan','COUNT']))]
 num_uid = ['Unidentified', sum(list(df.loc[df.SCIENTIFIC_NAME == 'nan','COUNT']))]

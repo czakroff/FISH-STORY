@@ -47,10 +47,6 @@ results = cursor.fetchall()
 
 #Build pandas dataframe
 df = pd.DataFrame(results,columns = columns)
-
-for i in range(0,len(df.dtypes)):
-	if str(df.dtypes[i]) == 'O':
-		df[columns[i]] = df[columns[i].astype(str)
 			
 #Print dataframe as local csv
 df.to_csv('/home/ubuntu/summaryData.csv')
