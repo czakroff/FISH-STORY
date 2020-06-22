@@ -45,18 +45,18 @@ def fastQ_to_pandas(fwd_path, rev_path, df):
                 line_r = next(rev)
             
                 if (line_f[0] == '@') & read:
-                	ID_str = line_f.split(' ')
-                    row.append(ID_str[0][1:-2])
+                    ID_str = line_f.split(' ')
+                    row.append(ID_str[0][1:11])
                     row.append(ID_str[1])
-                    row.append(ID_str[2][-3:])
+                    row.append(ID_str[2][-4:-1])
                 elif (line_f[0] == '+') & read:
                     read = False
                 elif read:
-                    row.append(line_f)
-                    row.append(line_r)
+                    row.append(line_f[:-1])
+                    row.append(line_r[:-1])
                 else:
-                    row.append(line_f)
-                    row.append(line_r)
+                    row.append(line_f[:-1])
+                    row.append(line_r[:-1])
                     df.loc[i] = row
                     read = True
                     row = []
