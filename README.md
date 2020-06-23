@@ -1,8 +1,10 @@
 # FISH-STORY
 
-A system to process and present marine fish eDNA data.
+Monitoring fisheries with environmental DNA.
 
-Summary
+Environmental DNA (eDNA) is a rapidly growing tool that allows scientists, stakeholders, conservationists, and ecosystem managers to understand what species are present in an ecosystem and how that changes with time. As genomic costs decrease and the amount of genomic data we can extract rapidly increases, eDNA is quickly becoming viable as a tool to enhance or replace human visual surveys and other expensive or intensive means of ecosystem monitoring. In theory, for this to be useful, eDNA would have to be performed regularly across time and space within a system, which would quickly result in enormous volumes of read data that would need to be stored, processed, and likely re-processed as processing pipelines and taxonomic reference databases improve over time.
+
+FISH-STORY is intended as a proof of concept: that eDNA data, if regularly sampled, could be stored, processed, and re-processed in a distributed cloud architecture pipeline. In this case, a marine metagenome sample was used to build the foundation of a platform that could eventually provide information on which fish are present in a system, how diverse the fish are within that system, and how those metrics change over sequential sampling in time. Further, the system would retain and re-process unidentified DNA reads (the "dark genome") of the samples and update the summarized results with these new data over time. 
 
 <hr/>
 
@@ -10,7 +12,12 @@ Summary
 
 <hr/>
 
-Summary
+This project was performed during the Summer 2020 Insight Data Engineering Silicon Valley (remote) session and so only a basic framework/foundation was constructed within the intense 3 or so weeks of learning and project time. 
+
+The core intent of the project was to build a database (ideally a distributed NoSQL database) to partition and prioritize the storage of reads as they are ingested, processed, re-processed over time. The idea was to maintain recent and unidentified reads (the dark genome) in a priority data store, while reads that were identified or aged out were summarized, condensed, and/or removed. Therefore, as time went on (say collecting monthly as part of a time-series), the most recent trends would be focused on to be the most robust while holes in the historical data were eventually filled in.
+
+This would result in a dashboard showing present species and ecosystem diversity across time that ecosystem managers, coastal stakeholders, researchers, and conservationists could use to easily examine the state and change of the fish in this system over time. The core idea is also very extensible. For example, if sampling was increased spatially to more locations, geolocation data could be added and the dashboard could have a map (or maps) of species distributions over time.
+
 
 [Demo presentation.](https://docs.google.com/presentation/d/1t4P6ZO3N_uhLGB01bQVNy7vKSV2dOdr_eI_YuR1Riek/edit?usp=sharing)
 
@@ -36,7 +43,7 @@ The tech stack centers around Spark's processing framework, which was chosen for
 
 Spark can then ingest reads from the PostgreSQL database, run them through a distributed processing framework using OBITools, which results in an output fasta of reads that have been taxonomically identified.
 
-Finally, the fasta is ingested into Spark and stored as a new table in PostgreSQL. A dashboard instance reads these data to produce visualizations of species presence and dark genome (unidentified reads) status.
+Finally, the results fasta is ingested into Spark and stored as a new table in PostgreSQL. A dashboard instance reads these data to produce visualizations of species presence and dark genome (unidentified reads) status.
 
 ## Dataset
 
@@ -61,9 +68,9 @@ This dataset has been processed and [published](https://www.frontiersin.org/arti
 
 #### Java
 Hosts: all  
-'''shell script
-sudo apt install openjdk-8-jre-headless
-'''
+'''shell script  
+sudo apt install openjdk-8-jre-headless  
+'''  
 
 #### Spark
 Hosts: sparkmaster and sparkworkers  
@@ -104,11 +111,11 @@ Hosts: dashboard
 Hosts: dashboard  
 [Installation Guide](https://plotly.com/python/plotly-express/)
 
-##### Nginx
+#### Nginx
 Hosts: dashboard  
 [Installation Guide](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04)
 
-##### Gunicorn
+#### Gunicorn
 Hosts: dashboard  
 [Installation Guide](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-18-04)
 
