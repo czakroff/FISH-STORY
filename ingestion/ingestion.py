@@ -8,7 +8,6 @@ Casey Zakroff; Jun 22, 2020
 
 ### Libraries
 import os
-import boto3
 import numpy as np
 import pandas as pd
 from pyspark.sql import SparkSession
@@ -18,7 +17,7 @@ from ingest_utils import *
 
 ###Create and configure Spark session
 
-# Enable Arrow-based columnar data transfers
+#Build Spark Session
 spark = SparkSession.builder.appName("FishIngest").getOrCreate()
 
 ###Make FastQ

@@ -3,23 +3,23 @@ Spark calls
 Ingestion:
 spark-submit \
   --master spark://10.0.0.8:7077 \
-  --driver-class-path postgresql-42.2.6.jar \
-  --jars postgresql-42.2.6.jar \
+  --driver-class-path /home/ubuntu/postgresql-42.2.6.jar \
+  --jars /home/ubuntu/postgresql-42.2.6.jar \
   --executor-memory 6G \
   FISH-STORY/ingestion/ingestion.py
 
 Processing:
 spark-submit \
   --master spark://10.0.0.8:7077 \
-  --driver-class-path postgresql-42.2.6.jar \
-  --jars postgresql-42.2.6.jar \
+  --driver-class-path /home/ubuntu/postgresql-42.2.6.jar \
+  --jars /home/ubuntu/postgresql-42.2.6.jar \
   --executor-memory 6G \
   FISH-STORY/data-processing/spark_eDNA.py
   
 Store Results:
 spark-submit \
   --master spark://10.0.0.8:7077 \
-  --driver-class-path postgresql-42.2.6.jar \
-  --jars postgresql-42.2.6.jar \
+  --driver-class-path /home/ubuntu/postgresql-42.2.6.jar \
+  --jars /home/ubuntu/postgresql-42.2.6.jar \
   --executor-memory 2G \
   FISH-STORY/data-processing/summarizeResults.py
