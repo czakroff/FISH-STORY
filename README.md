@@ -19,7 +19,7 @@ The core intent of the project was to build a database (ideally a distributed No
 This would result in a dashboard showing present species and ecosystem diversity across time that ecosystem managers, coastal stakeholders, researchers, and conservationists could use to easily examine the state and change of the fish in this system over time. The core idea is also very extensible. For example, if sampling was increased spatially to more locations, geolocation data could be added and the dashboard could have a map (or maps) of species distributions over time.
 
 
-[Demo presentation.](https://docs.google.com/presentation/d/1t4P6ZO3N_uhLGB01bQVNy7vKSV2dOdr_eI_YuR1Riek/edit?usp=sharing)
+[Insight Demo Presentation](https://docs.google.com/presentation/d/1t4P6ZO3N_uhLGB01bQVNy7vKSV2dOdr_eI_YuR1Riek/edit?usp=sharing)
 
 ## Table of Contents
 1. [Overview](README.md#FISH-STORY)
@@ -142,12 +142,14 @@ For a number of reasons (the paired raw data form, the presence of blank data po
 
 ### Optimize Processing
 
+### Store and/or Clear Intermediate Data
+
 ### Geolocation Data (in Postgres or by connecting HBase to Spark through GEOMESA)
 
 ### Partition and Distribute Storage
 
 ### Mock Full Time Series
 
-### Automate Re-Processing with Airflow
+### Automate Workflow and Re-Processing with Airflow
 
 ### Increase Dashboard Visualizations and Information

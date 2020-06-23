@@ -1,24 +1,25 @@
 ###app.py
-#Hello World
-#Wolf Tutorial
 #Fish data
 
-###ingestion.py
+###get_summary_data.py
 #
+
+###ingestion.py
+# May not be able to handle full table size in transfer to psql
+# Pass file and table name to script from shell call
 
 ###ingest_utils.py
 #
 
 ###proc_utils.py
-#rewrite for Fish data
+#
 
 ### postproc_cleanup.py
-#Make this file
-#Clear or store intermediate data from master
+# Make this file
+# Clear or store intermediate data from master
 
 ###spark_eDNA.py
 #
 
 ###summarizeResults.py
-#Pass table name to script from shell call
-
+# Pass table name to script from shell call
