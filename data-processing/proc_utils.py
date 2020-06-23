@@ -41,23 +41,27 @@ def pandas_to_fastQ(df, fwd_path, rev_path):
     with open(fwd_path, 'w') as fwd:
         with open(rev_path, 'w') as rev:
         
-            #loop down table, writing rows to file 
+            #Loop down table, writing rows to file 
             for i in range(0,len(df)):
+            	#Build and write read header
                 ID_string = '@' + df.loc[i,'SRA'] + '.' + df.loc[i,'readNum'] + \
                             ' ' + df.loc[i,'readNum'] + ' length=' + \
                             df.loc[i,'length'] + '\n'
                 fwd.write(ID_string)
                 rev.write(ID_string)
                 
+                #Write reads
                 fwd.write(df.loc[i,'read_F'] + '\n')
                 rev.write(df.loc[i,'read_R'] + '\n')
                 
+                #Build and write quality header
                 qual_string = '+' + df.loc[i,'SRA'] + '.' + df.loc[i,'readNum'] + \
                               ' ' + df.loc[i,'readNum'] + ' length=' + \
                               df.loc[i,'length'] + '\n'
                 fwd.write(qual_string)
                 rev.write(qual_string)
                 
+                #Write quality codes
                 fwd.write(df.loc[i,'qual_F'] + '\n')
                 rev.write(df.loc[i,'qual_R'] + '\n')
 
@@ -74,11 +78,16 @@ def fasta_to_dicts(fasta_path):
     dict_list = list()
     tuples = []
 
+	#Open results fasta
     with open(fasta_path) as result:
+    	#Scan lines
         for line in result:
+        	#Check for result line (do not need read sequence for now)
             if (line[0] == '>'):
+            	#Split data on semicolons
                 split_line = line.split(';')
                 
+                #Loop through results line and store column name and results in tuples
                 for i in range(0,len(split_line)-1):
                     #ID
                     if i == 0:
@@ -89,6 +98,7 @@ def fasta_to_dicts(fasta_path):
                         fields = split_line[i].split('=')
                         tuples.append((fields[0][1:],fields[1]))
                         
+                #Build dict and add to list. Reset tuples for next line
                 dict_list.append(dict(tuples))
                 tuples = []
                 

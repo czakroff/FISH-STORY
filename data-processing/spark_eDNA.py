@@ -2,8 +2,8 @@
 
 '''
 Written for Insight Data Engineering Fellowship
-Version 2.0: Functional Pipeline
-Casey Zakroff; Jun 22, 2020
+Version 2.1: Functional Pipeline
+Casey Zakroff; Jun 23, 2020
 '''
 
 ### Libraries
