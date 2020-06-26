@@ -68,9 +68,8 @@ This dataset has been processed and [published](https://www.frontiersin.org/arti
 
 #### Java
 Hosts: all  
-'''   
-sudo apt install openjdk-8-jre-headless  
-'''  
+	sudo apt install openjdk-8-jre-headless  
+ 
 
 #### Spark
 Hosts: sparkmaster and sparkworkers  
@@ -88,7 +87,9 @@ Be sure to install Cmake
 
 #### Postgresql
 Hosts: postgresql  
-[Installation Guide & Tutorial](https://blog.insightdatascience.com/simply-install-postgresql-58c1e4ebf252)
+[Installation Guide & Tutorial](https://blog.insightdatascience.com/simply-install-postgresql-58c1e4ebf252)  
+
+Note: sparkmaster will require the latest [JDBC PostgreSQL Driver](https://jdbc.postgresql.org/download.html)
 
 #### Python 
 ##### Pyspark/SparkSQL
@@ -140,6 +141,8 @@ The primary trade-off in this project was that envisioned functionalities had to
 For a number of reasons (the paired raw data form, the presence of blank data points in the taxonomies, the desired to distribute and partition the data), a NoSQL architecture made more sense to work with for this eDNA data. However, time and functionality demanded that a quick and serviceable solution be produced, so a relational database was substituted in. Though this still serves to represent and store the paired read data well, it is not optimal for maintaining a robust and fluid taxonomic identity for each read.
 
 ## Future Work
+
+### Split Ingestion of Reads to Postgres (not every read has a mate)
 
 ### Optimize Processing
 

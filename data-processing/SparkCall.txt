@@ -15,7 +15,9 @@ spark-submit \
   --master spark://10.0.0.7:7077 \
   --driver-class-path /home/ubuntu/postgresql-42.2.14.jar \
   --jars /home/ubuntu/postgresql-42.2.14.jar \
-  --executor-memory 3G \
+  --num-executors 8 \
+  --executor-cores 5 \
+  --executor-memory 19G \
   FISH-STORY/data-processing/spark_eDNA.py
   
 Store Results:
@@ -24,4 +26,4 @@ spark-submit \
   --driver-class-path /home/ubuntu/postgresql-42.2.14.jar \
   --jars /home/ubuntu/postgresql-42.2.14.jar \
   --executor-memory 2G \
-  FISH-STORY/data-processing/summarizeResults.pynano
+  FISH-STORY/data-processing/summarizeResults.py
