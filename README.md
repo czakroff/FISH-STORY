@@ -59,8 +59,8 @@ This dataset has been processed and [published](https://www.frontiersin.org/arti
 
 | Host | Instance type |
 |------------------|---------------|
-| sparkmaster | m4.large |
-| sparkworker{1-3} | m4.large |
+| sparkmaster | m5a.4xlarge |
+| sparkworker{1-3} | m5a.4xlarge |
 | postgresql | m5a.large |
 | dashboard | t2.micro |
 
@@ -68,8 +68,17 @@ This dataset has been processed and [published](https://www.frontiersin.org/arti
 
 #### Java
 Hosts: all  
+
+```shell script
 	sudo apt install openjdk-8-jre-headless  
- 
+```
+
+#### Scala
+Hosts: sparkmaster, sparkworkers 
+
+```
+	sudo apt install scala  
+```
 
 #### Spark
 Hosts: sparkmaster and sparkworkers  
@@ -83,6 +92,7 @@ Hosts: sparkmaster
 #### OBITools3
 Hosts: sparkmaster  
 [Installation Guide & Tutorial](https://git.metabarcoding.org/obitools/obitools3/wikis/home)  
+
 Be sure to install Cmake
 
 #### Postgresql
@@ -103,6 +113,7 @@ Hosts: sparkmaster, dashboard
 ##### psycopg2
 Hosts: sparkmaster, dashboard  
 [Installation Guide](https://www.psycopg.org/docs/install.html)  
+
 Be sure to install libpq-dev
 
 ##### Dash
