@@ -24,4 +24,4 @@ spark-submit \
   --driver-class-path /home/ubuntu/postgresql-42.2.14.jar \
   --jars /home/ubuntu/postgresql-42.2.14.jar \
   --executor-memory 2G \
-  FISH-STORY/data-processing/summarizeResults.py
+  FISH-STORY/data-processing/summarizeResults.pynano
