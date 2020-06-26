@@ -20,9 +20,9 @@ import os
 ###Data preparation
 
 #Get mock data from local table
-pie_df = pd.read_csv('/home/ubuntu/TestData/ID_UID.csv')
-line_df = pd.read_csv('/home/ubuntu/TestData/Num_Sp.csv')
-list_df = pd.read_csv('/home/ubuntu/TestData/Sp_Id.csv')
+pie_df = pd.read_csv('/home/ubuntu/ID_UID.csv')
+line_df = pd.read_csv('/home/ubuntu/Num_Sp.csv')
+list_df = pd.read_csv('/home/ubuntu/Sp_Id.csv')
 
 line = px.line(line_df, x="Year", y="Num_Sp", title="Number of Species by Year")
 
