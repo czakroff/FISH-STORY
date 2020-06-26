@@ -50,8 +50,8 @@ pandas_to_fastQ(df, fwd_path, rev_path)
 ###ObiTools3 OS calls
 
 #Import sequences and metadata (tag/multiplex)
-os.system("obi import --quality-solexa /home/ubuntu/SRR8649743_1.fastq fish/reads1")
-os.system("obi import --quality-solexa /home/ubuntu/SRR8649743_2.fastq fish/reads2")
+os.system("obi import --quality-sanger /home/ubuntu/SRR8649743_1.fastq fish/reads1")
+os.system("obi import --quality-sanger /home/ubuntu/SRR8649743_2.fastq fish/reads2")
 os.system("obi import --ngsfilter /home/ubuntu/fish_ngsfilter.txt fish/ngsfile")
 
 #Align paired reads into singular read; Remove unaligned reads

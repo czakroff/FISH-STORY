@@ -2,24 +2,26 @@ Spark calls
 
 Ingestion:
 spark-submit \
-  --master spark://10.0.0.8:7077 \
-  --driver-class-path /home/ubuntu/postgresql-42.2.6.jar \
-  --jars /home/ubuntu/postgresql-42.2.6.jar \
-  --executor-memory 6G \
+  --master spark://10.0.0.7:7077 \
+  --driver-class-path /home/ubuntu/postgresql-42.2.14.jar \
+  --jars /home/ubuntu/postgresql-42.2.14.jar \
+  --num-executors 8 \
+  --executor-cores 5 \
+  --executor-memory 19G \
   FISH-STORY/ingestion/ingestion.py
 
 Processing:
 spark-submit \
-  --master spark://10.0.0.8:7077 \
-  --driver-class-path /home/ubuntu/postgresql-42.2.6.jar \
-  --jars /home/ubuntu/postgresql-42.2.6.jar \
-  --executor-memory 6G \
+  --master spark://10.0.0.7:7077 \
+  --driver-class-path /home/ubuntu/postgresql-42.2.14.jar \
+  --jars /home/ubuntu/postgresql-42.2.14.jar \
+  --executor-memory 3G \
   FISH-STORY/data-processing/spark_eDNA.py
   
 Store Results:
 spark-submit \
-  --master spark://10.0.0.8:7077 \
-  --driver-class-path /home/ubuntu/postgresql-42.2.6.jar \
-  --jars /home/ubuntu/postgresql-42.2.6.jar \
+  --master spark://10.0.0.7:7077 \
+  --driver-class-path /home/ubuntu/postgresql-42.2.14.jar \
+  --jars /home/ubuntu/postgresql-42.2.14.jar \
   --executor-memory 2G \
   FISH-STORY/data-processing/summarizeResults.py

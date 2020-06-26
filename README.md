@@ -68,7 +68,7 @@ This dataset has been processed and [published](https://www.frontiersin.org/arti
 
 #### Java
 Hosts: all  
-'''shell script  
+'''   
 sudo apt install openjdk-8-jre-headless  
 '''  
 
@@ -83,7 +83,8 @@ Hosts: sparkmaster
 
 #### OBITools3
 Hosts: sparkmaster  
-[Installation Guide & Tutorial](https://git.metabarcoding.org/obitools/obitools3/wikis/home)
+[Installation Guide & Tutorial](https://git.metabarcoding.org/obitools/obitools3/wikis/home)  
+Be sure to install Cmake
 
 #### Postgresql
 Hosts: postgresql  
@@ -100,7 +101,7 @@ Hosts: sparkmaster, dashboard
 
 ##### psycopg2
 Hosts: sparkmaster, dashboard  
-[Installation Guide](https://www.psycopg.org/docs/install.html)
+[Installation Guide](https://www.psycopg.org/docs/install.html)  
 Be sure to install libpq-dev
 
 ##### Dash
