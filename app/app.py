@@ -3,14 +3,15 @@
 
 '''
 Written for Insight Data Engineering Fellowship
-Version 1.2: Wolf data through Gunicorn
-Casey Zakroff; Jun 22, 2020
+Version 2.0: Prototype with Mock Data
+Casey Zakroff; Jun 26, 2020
 '''
 
 ###Libraries
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+from dash.dependencies import Input, Output
 import plotly.express as px
 import numpy as np
 import pandas as pd
@@ -18,28 +19,12 @@ import os
 
 ###Data preparation
 
-#Get data from local table
-path = '/home/ubuntu/summaryData.csv'
-df = pd.read_csv(path)
+#Get mock data from local table
+pie_df = pd.read_csv('/home/ubuntu/TestData/ID_UID.csv')
+line_df = pd.read_csv('/home/ubuntu/TestData/Num_Sp.csv')
+list_df = pd.read_csv('/home/ubuntu/TestData/Sp_Id.csv')
 
-del df[df.columns[0]]
-
-for i in range(0,len(df.dtypes)):
-	if str(df.dtypes[i]) == 'object':
-		df[df.columns[i]] = df[df.columns[i]].astype(str)
-
-#Proportion of Reads Identified
-num_id = ['Identified', sum(list(df.loc[df.SCIENTIFIC_NAME != 'nan','COUNT']))]
-num_uid = ['Unidentified', sum(list(df.loc[df.SCIENTIFIC_NAME == 'nan','COUNT']))]
-
-id_df = pd.DataFrame([num_id,num_uid], columns=['status','counts'])
-
-fig = px.pie(id_df, values='counts', names='status', title='Proportion of Reads Identified')
-
-#Table of Species Identified
-sp = list(set(df.loc[df.SCIENTIFIC_NAME != 'nan', 'SCIENTIFIC_NAME']))
-sp = sorted(list(i for i in sp if " " in i))
-sp_df = pd.DataFrame(sp, columns = ['Species'])
+line = px.line(line_df, x="Year", y="Num_Sp", title="Number of Species by Year")
 
 ### Function to make table
 def generate_table(dataframe, max_rows=10):
@@ -62,20 +47,45 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 app.layout = html.Div(children=[
-    html.H1(children='FISH-STORY DASHBOARD'),
+   
+	html.H1(children='FISH-STORY DASHBOARD'),
 
-    html.Div(children='''
-        Version 1.0: Wolf Tutorial Test
+	html.Div(children='''
+        Version 2.0: Mock Data Prototype
     '''),
 
-    dcc.Graph(
-        id='pie-graph',
-        figure=fig
+	html.Div(
+		dcc.Graph(
+			id='line',
+			figure=line
+        )
     ),
     
-    generate_table(sp_df)
+    html.Div([
+    	generate_table(list_df, 100)
+    ], className="five columns"),
     
+    html.Div([
+    	dcc.Graph(id='pie-graph'),	
+		dcc.Slider(
+        	id='year--slider',
+        	min=pie_df['Year'].min(),
+        	max=pie_df['Year'].max(),
+        	value=pie_df['Year'].max(),
+        	marks={str(year): str(year) for year in pie_df['Year'].unique()},
+        	step=None)
+    ], className="six columns")
 ])
+
+@app.callback(
+	Output('pie-graph', 'figure'),
+	[Input('year--slider', 'value')])
+def update_pie(year_value):
+	dff = pie_df[pie_df['Year'] == year_value]
+
+	pie = px.pie(dff, values=[int(dff['ID']),int(dff['UID'])], names=['Identified', 'Unidentified'], title='Proportion of Reads Identified')
+	  
+	return pie
 
 if __name__ == '__main__':
     app.run_server(host='0.0.0.0', debug=True)

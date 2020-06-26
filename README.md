@@ -70,14 +70,14 @@ This dataset has been processed and [published](https://www.frontiersin.org/arti
 Hosts: all  
 
 ```shell script
-	sudo apt install openjdk-8-jre-headless  
+sudo apt install openjdk-8-jre-headless  
 ```
 
 #### Scala
 Hosts: sparkmaster, sparkworkers 
 
-```
-	sudo apt install scala  
+```shell script
+sudo apt install scala  
 ```
 
 #### Spark
@@ -87,13 +87,14 @@ Hosts: sparkmaster and sparkworkers
 #### SRAtools
 Hosts: sparkmaster  
 [Installation Guide](https://github.com/ncbi/sra-tools/wiki)  
+
 [Using SRAtools in AWS](https://www.ncbi.nlm.nih.gov/sra/docs/sra-aws-download/)
 
 #### OBITools3
 Hosts: sparkmaster  
 [Installation Guide & Tutorial](https://git.metabarcoding.org/obitools/obitools3/wikis/home)  
 
-Be sure to install Cmake
+Note: Be sure to install Cmake
 
 #### Postgresql
 Hosts: postgresql  
@@ -114,7 +115,7 @@ Hosts: sparkmaster, dashboard
 Hosts: sparkmaster, dashboard  
 [Installation Guide](https://www.psycopg.org/docs/install.html)  
 
-Be sure to install libpq-dev
+Note: Be sure to install libpq-dev
 
 ##### Dash
 Hosts: dashboard  
